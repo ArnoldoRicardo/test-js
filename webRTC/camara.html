@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+</head>
+<body>
+    <video id="v"></video>
+    <script type="text/javascript">
+        window.addEventListener("load",init);
+
+        function init(){
+            var video = document.querySelector("#v");
+
+            navigator.getUserMedia = (navigator.getUserMedia ||
+                navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia);
+
+
+            if (navigator.getUserMedia) {
+                navigator.getUserMedia({video:true},
+                    function(stream){
+                        video.src = window.URL.createObjectURL(stream);
+                        video.play();
+                    },
+                    function(e){console.log(e);});
+            }
+            else alert("Actualiza tu navegador");
+        }
+    </script>
+</body>
+</html>

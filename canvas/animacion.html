@@ -1,0 +1,58 @@
+<html>
+  <head>
+    <title></title>
+    <style type="text/css">
+      canvas{
+	  border: solid;
+      }
+    </style>
+  </head>
+  <body>
+    <canvas id="juego">tu navegador no soporta canvas</canvas>
+    <input type="button" value="iniciar" id="boton">
+    <script type="text/javascript">
+      window.addEventListener("load",init);
+      
+      var velocidad = 5, direccion = velocidad, iniciar = false, x = 50, y = 10;
+      var intervalo;
+
+      function init(){
+	  var canvas = document.getElementById("juego");
+	  var ctx = canvas.getContext("2d");
+	  
+	  ctx.fillStyle = 'rgb(200,0,0)';
+	  ctx.arc(x,y,10,0,7);
+	  ctx.fill();
+	  
+	  document.getElementById('boton').addEventListener('click',function(){
+	      if(iniciar){
+		  this.value = 'Iniciar';
+		  window.clearInterval(intervalo);
+		  iniciar = false;
+	      }
+	      else{
+		  this.value = 'Detener';
+		  intervalo = window.setInterval(function(){
+		  move(canvas,ctx);
+		  },32);
+		  iniciar = true;
+	      }
+	  });
+      }
+
+      function draw(canvas,ctx,x,y){
+	  canvas.width = canvas.width;
+	  ctx.fillStyle = 'rgb(200,0,0)';
+	  ctx.arc(x,y,10,0,7);
+	  ctx.fill();
+      }
+      
+      function move(canvas,ctx){
+	  if(y > (canvas.height - 20)) direccion = -velocidad;
+	  if(y < (20)) direccion = velocidad;
+	  y += direccion;
+	  draw(canvas,ctx,x,y);
+      }
+      </script>
+</body>
+</html>
